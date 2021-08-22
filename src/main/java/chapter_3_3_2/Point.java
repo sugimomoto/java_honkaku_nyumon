@@ -1,5 +1,7 @@
 package chapter_3_3_2;
 
+import java.util.Objects;
+
 public class Point {
     private final int x;
     private final int y;
@@ -19,11 +21,7 @@ public class Point {
 
     @Override
     public int hashCode(){
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + x;
-        result = prime * result + y;
-        return result;
+        return Objects.hash(this.x,this.y);
     }
 
     @Override
@@ -45,6 +43,13 @@ public class Point {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("Point [x=").append(x).append(",y=").append(y).append("]");
+       return builder.toString();
     }
 
 }

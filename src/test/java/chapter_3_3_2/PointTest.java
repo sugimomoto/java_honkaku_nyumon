@@ -35,5 +35,12 @@ public class PointTest {
         assertFalse(point.equals(pointDiffX));
         assertFalse(point.equals(pointDiffY));
     }
+
+    @Test
+    public void PointToStringCheck(){
+        Point point = new Point(1, 2);
+
+        assertEquals("Point [x=1,y=2]", point.toString());
+    }
     
 }
