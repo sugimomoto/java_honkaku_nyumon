@@ -14,7 +14,6 @@ public class App
 {
     public static void main( String[] args )
     {
-        ArraySample.arrayCopySample();
-
+        System.out.println("Result : " + Integer.compare(1, 5));
     }
 }
