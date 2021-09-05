@@ -14,6 +14,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println("Result : " + Integer.compare(1, 5));
+        System.out.println("Hello");
+
     }
 }
