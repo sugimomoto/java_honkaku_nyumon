@@ -1,10 +1,12 @@
 package chapter_5_3_1;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+
 
 import org.junit.Test;
 
@@ -56,7 +58,7 @@ public class StreamMiddleControleTest {
         Group group3 = new Group();
         group3.add(new Student("Kimura", 90));
         group3.add(new Student("Hashimoto", 65));
-        group3.add(new Student("Ueda", 80));
+        group3.add(new Student("Ueda", 700));
         groups.add(group3);
 
         Stream<List<Student>> mappedStream = groups.stream().map(g -> g.getStudents());
@@ -65,5 +67,19 @@ public class StreamMiddleControleTest {
         assertEquals(3, mappedStream.count());
         assertEquals(9, flatMappedStream.count());
 
+        List<Student> sortedStudents = groups.stream()
+        .flatMap(g -> g.getStudents().stream())
+        .sorted((s1, s2) -> s1.getScore() - s2.getScore())
+        .toList();
+
+        Student beforeStuden = new Student("first",0);
+
+        for (Student student : sortedStudents) {
+
+            boolean judge = (beforeStuden.getScore() < student.getScore());
+            assertTrue(judge);
+
+            beforeStuden = student;
+        }
     }
 }
