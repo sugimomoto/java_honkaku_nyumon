@@ -4,7 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -81,5 +84,48 @@ public class StreamMiddleControleTest {
 
             beforeStuden = student;
         }
+    }
+
+    @Test
+    public void MiddleProcessingTest(){
+        List<Student> students = new ArrayList<>();
+        
+        students.add(new Student("Hello", 100));
+        students.add(new Student("World", 80));
+        students.add(new Student("Stream", 50));
+        
+        students = students.stream().filter(s -> s.getScore() < 90).toList();
+        assertEquals(2, students.size());
+
+        students = students.stream().limit(1).toList();
+        assertEquals(1, students.size());
+
+        List<String> strings = new ArrayList<>();
+        strings.add("Ken");
+        strings.add("Shin");
+        strings.add("Ken");
+        strings.add("Takuya");
+        strings.add("Ken");
+        strings.add("Shin");
+
+        strings = strings.stream().distinct().toList();
+
+        assertEquals(3, strings.size());
+    }
+
+    @Test
+    public void StreamEndProcessing(){
+        List<String> strings = new ArrayList<>();
+        strings.add("Ken");
+        strings.add("Shin");
+        strings.add("Ken");
+        strings.add("Takuya");
+        strings.add("Ken");
+        strings.add("Shin");
+
+        String result = strings.stream().distinct().collect(Collectors.joining(","));
+
+        assertEquals("Ken,Shin,Takuya", result);
+
     }
 }
