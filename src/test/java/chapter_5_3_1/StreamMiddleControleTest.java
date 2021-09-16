@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -127,5 +129,32 @@ public class StreamMiddleControleTest {
 
         assertEquals("Ken,Shin,Takuya", result);
 
+        // 引数を省略することもできる
+        result = strings.stream().distinct().collect(Collectors.joining());
+        assertEquals("KenShinTakuya", result);
+
+        // Setにすると重複が弾かれる
+        Set<String> resultSet = strings.stream().collect(Collectors.toSet());
+        assertEquals(3,resultSet.size());
+
+    }
+
+    @Test
+    public void StreamGroupByTest(){
+        List<Student> students = new ArrayList<>();
+        students.add(new Student("Ken",100));
+        students.add(new Student("Shin",60));
+        students.add(new Student("Takuya",80));
+        students.add(new Student("Taro",100));
+        students.add(new Student("Haru",60));
+
+        //　Groupbyを実行した
+        Map<Integer,List<Student>> map = students.stream()
+            .collect(Collectors.groupingBy(Student::getScore));
+
+        assertEquals(3,map.size());
+        assertEquals(2, map.get(100).size());
+        assertEquals(1, map.get(80).size());
+        assertEquals(2, map.get(60).size());
     }
 }
