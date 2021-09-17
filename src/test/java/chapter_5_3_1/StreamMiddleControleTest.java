@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -156,5 +158,50 @@ public class StreamMiddleControleTest {
         assertEquals(2, map.get(100).size());
         assertEquals(1, map.get(80).size());
         assertEquals(2, map.get(60).size());
+    }
+
+    @Test
+    public void StreamMaxAndMinTest(){
+        List<Student> students = new ArrayList<>();
+        students.add(new Student("Ken",100));
+        students.add(new Student("Shin",60));
+        students.add(new Student("Takuya",80));
+
+        Optional fistStudent = students.stream().findFirst();
+
+
+        // C# だと firstOfDefault だけど、JavaはOptionalに格納することで、似たような挙動を達成するのね
+        if(fistStudent.isPresent()){
+            Student result = (Student)fistStudent.get();
+            assertEquals(100, result.getScore());
+            assertEquals("Ken", result.getName());
+        }
+
+        // max / min はOptionalを返す。
+        // 空を返す可能性があるため
+        Optional student = students.stream()
+            .max((s1, s2) -> s1.getScore() - s2.getScore());
+
+        // Optional の値存在チェックは isPresentで行うことができる
+        if(student.isPresent()){
+            Student result = (Student)student.get();
+            assertEquals(100, result.getScore());
+            assertEquals("Ken", result.getName());
+        }
+
+        int maxScore = students.stream().mapToInt(Student::getScore).sum();
+
+        assertEquals(240, maxScore);
+
+        long count = students.stream().mapToInt(Student::getScore).count();
+
+        assertEquals(3, count);
+
+        OptionalDouble optionalAvarage = students.stream().mapToInt(Student::getScore).average();
+
+        double avarage = optionalAvarage.isPresent() ? optionalAvarage.getAsDouble() : 0;
+
+        assertEquals((double)80, avarage,0.0);
+
     }
 }
