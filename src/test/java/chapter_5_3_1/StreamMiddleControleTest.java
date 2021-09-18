@@ -8,10 +8,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 
@@ -202,6 +204,91 @@ public class StreamMiddleControleTest {
         double avarage = optionalAvarage.isPresent() ? optionalAvarage.getAsDouble() : 0;
 
         assertEquals((double)80, avarage,0.0);
+
+        String studentStrings = students.stream().map(s -> s.getName() + ":" + String.valueOf(s.getScore())).collect(Collectors.joining(","));
+        
+        assertEquals("Ken:100,Shin:60,Takuya:80", studentStrings);
+
+    }
+
+    @Test
+    public void StreamAPIPoint(){
+        List<String> list = Arrays.asList("Murata","Okada","Tanimoto");
+
+        List<String> newList = list.stream().filter(s -> s.length() > 5)
+            .map(s -> "[" + s + "]")
+            .collect(Collectors.toList());
+
+        assertEquals(2, newList.size());
+        assertEquals("[Murata]", newList.get(0));
+
+
+        String result = IntStream.range(0, 5)
+            .mapToObj(i -> "?")
+            .collect(Collectors.joining(","));
+
+        assertEquals("?,?,?,?,?", result);
+
+    }
+
+    @Test
+    public void StreamLikeMethodOfListTest(){
+        List<String> list = new ArrayList<>();
+        list.add("Murata");
+        list.add("Okada");
+        list.add("Tanimoto");
+
+        list.removeIf(s -> s == "Okada");
+
+        assertEquals(2, list.size());
+
+        list.replaceAll(s -> s.toUpperCase());
+
+        assertEquals("MURATA", list.get(0));
+        assertEquals("TANIMOTO", list.get(1));
+    }
+
+    @Test
+    public void StreamLikeMapMethodTest(){
+        List<String> list = new ArrayList<>();
+        list.add("Murata");
+        list.add("Okada");
+        list.add("Tanimoto");
+        list.add("Sakamoto");
+
+
+        HashMap<Integer, List<String>> expectMap = new HashMap<>();
+        expectMap.put(5, Arrays.asList("Okada"));
+        expectMap.put(6, Arrays.asList("Murata"));
+        expectMap.put(8, Arrays.asList("Tanimoto","Sakamoto"));
+
+        HashMap<Integer, List<String>> map = new HashMap<>();
+
+        list.forEach(name -> {
+            Integer nameLen = name.length();
+            List<String> valueList = map.get(nameLen);
+
+            if(valueList == null){
+                valueList = new ArrayList<>();
+                map.put(nameLen, valueList);
+            }
+
+            valueList.add(name);
+        });
+
+        assertEquals(expectMap.toString(), map.toString());
+
+        HashMap<Integer, List<String>> map2 = new HashMap<>();
+
+        list.forEach(name -> {
+            Integer nameLen = name.length();
+            List<String> valueList = map2.computeIfAbsent(nameLen, key -> 
+            new ArrayList<>());
+            valueList.add(name);
+        });
+
+        assertEquals(expectMap.toString(), map2.toString());
+
 
     }
 }
