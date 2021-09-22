@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
 import java.nio.file.Path;
@@ -110,4 +112,24 @@ public class ExceptionHandlingTest {
         assertTrue("ErrorOccured OK", isErrorOccurred);
 
     }
+
+    @Test
+    public void LogedStackTraceTest(){
+        String strValue = "abc";
+        boolean isExceptionCheck = false;
+        try{
+            int intValue = Integer.valueOf(strValue);
+
+        }catch(NumberFormatException ex){
+            isExceptionCheck = true;
+
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            ex.printStackTrace(pw);
+            assertTrue("Find Stack Trace", sw.toString().contains("LogedStackTraceTest"));
+        }
+
+        assertTrue("Exception was catched", isExceptionCheck);
+    }
 }
+
