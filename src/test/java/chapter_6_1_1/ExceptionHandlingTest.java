@@ -13,6 +13,8 @@ import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -113,6 +115,7 @@ public class ExceptionHandlingTest {
 
     }
 
+    
     @Test
     public void LogedStackTraceTest(){
         String strValue = "abc";
@@ -123,6 +126,9 @@ public class ExceptionHandlingTest {
         }catch(NumberFormatException ex){
             isExceptionCheck = true;
 
+            // ログ出力を忘れない。
+            // メッセージだけでなく、スタックトレースも出力することで、
+            // エラーの特定労力を大きく削減できる
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             ex.printStackTrace(pw);
@@ -130,6 +136,22 @@ public class ExceptionHandlingTest {
         }
 
         assertTrue("Exception was catched", isExceptionCheck);
+    }
+
+    @Test
+    public void ContinuedByException(){
+        Integer num = null;
+        Map<Integer,String> props = new HashMap<>();
+        try{
+            num = Integer.valueOf("hello");
+        }catch(NumberFormatException ex){
+            System.out.println("プロパティの読み込みに失敗");
+            num = 0;
+        }
+
+        if(num < 5){
+            assertEquals((Integer)0, num);
+        }
     }
 }
 
