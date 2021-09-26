@@ -2,6 +2,9 @@ package chapter_7_1_1;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 public class StringClassTest {
@@ -61,5 +64,54 @@ public class StringClassTest {
         System.out.println("String builder を利用するのが一番パフォーマンスが高い");
         System.out.println("繰り返し文字列結合を行う想定の場合は、String builder、局所的な場合は＋演算子のほうが読みやすい");
 
+    }
+
+    @Test
+    public void StringSpritTest(){
+        String sentence = "This is a pen";
+        String[] words = sentence.split(" ");
+
+        for (String word : words) {
+            System.out.println(word);
+        }
+
+        assertEquals(4, words.length);
+
+        String url = "www.acroquest.co.jp";
+
+        // "."が正規表現に当たるため、バックスラッシュでエスケープさせる必要がある。
+        // Mac でバックスラッシュはOptionを押しながら、¥キー
+        words = url.split("\\.");
+
+        assertEquals(4, words.length);
+
+        for (String word : words) {
+            System.out.println(word);
+        }
+    }
+
+    @Test
+    public void StringJoinTest(){
+        List<String> wordList = new ArrayList<>();
+        wordList.add("Hello");
+        wordList.add("World");
+        wordList.add("Java");
+
+        String result = String.join(" ", wordList);
+
+        assertEquals("Hello World Java", result);
+
+        // こういう指定もできる
+        String message = String.join(".","www","cdata","com");
+        assertEquals("www.cdata.com", message);
+        
+    }
+
+    @Test
+    public void StringReplaceTest(){
+        String sentence = "This is a pen";
+        String replacedSentence = sentence.replace("a ", "").replace("pen", "pens").replace("This","These").replace("is", "are");
+
+        assertEquals("These are pens", replacedSentence);
     }
 }
