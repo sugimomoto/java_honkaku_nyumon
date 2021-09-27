@@ -1,9 +1,12 @@
 package chapter_7_1_1;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.junit.Test;
 
@@ -113,5 +116,62 @@ public class StringClassTest {
         String replacedSentence = sentence.replace("a ", "").replace("pen", "pens").replace("This","These").replace("is", "are");
 
         assertEquals("These are pens", replacedSentence);
+    }
+
+    @Test
+    public void StringIndexOfTest(){
+        String sentence = "This is a pen";
+        int index = sentence.indexOf("is");
+
+        assertEquals(2, index);
+
+        index = sentence.indexOf("is",3); // be動詞のisの場所を返す
+        assertEquals(5, index);
+
+        index = sentence.lastIndexOf("is"); // 末尾から検索する。検索結果の数字は頭からの数
+        assertEquals(5, index);
+
+        sentence = "これはペンです。";
+        index = sentence.indexOf("ペン");
+
+        assertEquals(3, index);
+
+    }
+
+    @Test
+    public void StringPatternMatching(){
+        Pattern pattern = Pattern.compile("This is a .*\\.");
+
+        String sentence = "This is a pen.";
+
+        Matcher matcher = pattern.matcher(sentence);
+        
+        assertTrue("適合する", matcher.matches());
+    }
+
+    @Test
+    public void StringPattenSplit(){
+        Pattern pattern = Pattern.compile("\\s+");
+
+        String sentence = "This   is a pen.";
+
+        String[] words = pattern.split(sentence);
+
+        assertEquals(4, words.length);
+        assertEquals("This", words[0]);
+        assertEquals("is", words[1]);
+        assertEquals("a", words[2]);
+        assertEquals("pen.", words[3]);
+    }
+
+    @Test
+    public void StringPatternReplaceAll(){
+        Pattern pattern = Pattern.compile("\\s+");
+
+        String sentence = "This   is a pen.";
+
+        Matcher matcher = pattern.matcher(sentence);
+
+        assertEquals("This is a pen.", matcher.replaceAll(" "));
     }
 }
