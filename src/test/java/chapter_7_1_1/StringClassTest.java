@@ -174,4 +174,37 @@ public class StringClassTest {
 
         assertEquals("This is a pen.", matcher.replaceAll(" "));
     }
+
+    @Test
+    public void StringMethodRegixTest(){
+        String sentence = "This    is a pen.";
+
+        assertTrue("message", sentence.matches("Th.* is a .*\\."));
+
+        String[] words = sentence.split("\\s+");
+        assertEquals(4, words.length);
+
+        assertEquals("This is a pen.", sentence.replaceAll("\\s+", " "));
+
+        // String クラスのメソッドの中では、実際には正規表現クラスを利用した処理が行われている
+        // それぞれのメソッドを呼び出すたびに、オブジェクトが生成されているので、何回も繰り返し行う場合は、処理パフォーマンスが遅くなってしまう可能性がある
+        // 一回だけ処理を行う場合はStringクラスのメソッド
+        // 対象の文字列を繰り返し処理する場合は、自分でPatternクラスのオブジェクトを生成するのが望ましい
+    }
+
+    @Test
+    public void StringFormatTest(){
+        int number = 13;
+        String parameter = "apples";
+
+        String result = String.format("I have %d %s.", number, parameter);
+
+        assertEquals("I have 13 apples.", result);
+
+        // %X は16進数、%S は大文字
+        // https://docs.oracle.com/javase/jp/8/docs/api/java/util/Formatter.html#syntax
+        result = String.format("I have %X %S.", number, parameter);
+
+        assertEquals("I have D APPLES.", result);
+    }
 }
