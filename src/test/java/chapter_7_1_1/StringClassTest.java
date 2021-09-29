@@ -3,6 +3,7 @@ package chapter_7_1_1;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -206,5 +207,20 @@ public class StringClassTest {
         result = String.format("I have %X %S.", number, parameter);
 
         assertEquals("I have D APPLES.", result);
+    }
+
+    @Test
+    public void StringMessageFormatTest(){
+        int number = 13;
+        String parameter = "apples";
+
+        String message = MessageFormat.format("I have {0} {1}.", number, parameter);
+
+        assertEquals("I have 13 apples.", message);
+
+        message = MessageFormat.format("I have {1} {0}.", number, parameter);
+
+        assertEquals("I have apples 13.", message);
+        
     }
 }
