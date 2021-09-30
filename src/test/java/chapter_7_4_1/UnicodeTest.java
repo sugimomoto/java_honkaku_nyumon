@@ -75,5 +75,30 @@ public class UnicodeTest {
 
         assertEquals("あい", new String(utf16,"UTF-16"));
 
+        byte[] ms932 = { (byte)0x82, (byte)0xA0, (byte)0x82,(byte)0xA2 };
+
+        assertEquals("あい", new String(ms932,"MS932"));
     }
+
+    @Test 
+    public void SurrogatePairTest(){
+
+        String str = "あ會會淺あ";
+
+        char[] chars = str.toCharArray();
+   
+        for (char c : chars) {
+            if(Character.isLowSurrogate(c) || Character.isHighSurrogate(c)){
+                System.out.println("サロゲートペアが含まれる : " + c);
+            }else{
+                System.out.println("サロゲートペアが含まれる : " + c);
+            }
+        }
+
+        assertEquals(5, str.length());
+        assertEquals(5, str.codePointCount(0, str.length()));
+
+    }
+
+
 }
