@@ -100,5 +100,23 @@ public class UnicodeTest {
 
     }
 
+    @Test
+    public void StringInternMethodTest(){
+        String aaa = "aaa";
+        String aa = "aa";
+        String a = "a";
+
+        // equals で値の同等性を確認している
+        assertEquals(true, aaa.equals(aa + a));
+
+        // 同一オブジェクトではないため、falseになる
+        assertEquals(false, (aaa == (aa + a)));
+
+        // intern メソッドでStringオブジェクトの同一オブジェクトを探してくるため、trueとなる
+        assertEquals(true, (aaa == (aa + a).intern()));
+
+
+    }
+
 
 }
