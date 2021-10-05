@@ -85,12 +85,13 @@ public class FileTest {
         File file = new File("/Users/sugimotokazuya/Documents/sample.txt");
 
         BufferedReader reader = null;
+        String result = "";
 
         try{
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
 
             for (String line; (line = reader.readLine()) != null;) {
-                System.out.println(line);
+                result += line;
             }
         }catch(UnsupportedEncodingException ex){
             System.out.println("Support されていないエンコーディング");
@@ -107,6 +108,8 @@ public class FileTest {
                 }
             }
         }
+
+        assertEquals("お世話になっております。CDataの杉本です。これからよろしくおねがいします。", result);
     }
 
     @Test
@@ -114,14 +117,18 @@ public class FileTest {
 
         // Java7以降はめっちゃ簡単になってるー！
         Path path = Paths.get("/Users/sugimotokazuya/Documents/sample.txt");
+        String result = "";
 
         try(BufferedReader reader = Files.newBufferedReader(path,StandardCharsets.UTF_8)){
             for(String line; (line = reader.readLine()) != null;){
-                System.out.println(line);
+                result += line;
             }
         }catch(IOException ex){
             System.out.println(ex);
         }
+
+        assertEquals("お世話になっております。CDataの杉本です。これからよろしくおねがいします。", result);
+
     }
 
 }
