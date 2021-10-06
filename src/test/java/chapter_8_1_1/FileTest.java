@@ -3,12 +3,15 @@ package chapter_8_1_1;
 import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.CacheRequest;
 import java.nio.charset.StandardCharsets;
@@ -130,5 +133,48 @@ public class FileTest {
         assertEquals("お世話になっております。CDataの杉本です。これからよろしくおねがいします。", result);
 
     }
+
+    @Test 
+    public void WriteTextFileJava6BeforeTest(){
+        File file = new File("/Users/sugimotokazuya/Documents/sample2.txt");
+
+        BufferedWriter writer = null;
+
+        try{
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file),"UTF-8"));
+            writer.append("test");
+            writer.newLine();
+            writer.append("test2");
+        }catch(UnsupportedEncodingException ex){
+            System.out.println(ex);
+        }catch(IOException ex){
+            System.out.println(ex);
+        }finally{
+            if(writer != null){
+                try{
+                    writer.close();
+                }catch(IOException ex){
+                    System.out.println(ex);
+                }
+            }
+        }
+
+        Path path = Paths.get("/Users/sugimotokazuya/Documents/sample2.txt");
+
+        String result = "";
+
+        try(BufferedReader reader = Files.newBufferedReader(path,StandardCharsets.UTF_8)){
+            for(String line; (line = reader.readLine()) != null;){
+                result += line;
+            }
+        }catch(IOException ex){
+            System.out.println(ex);
+        }
+
+        assertEquals("testtest2", result);
+
+
+    }
+    
 
 }
