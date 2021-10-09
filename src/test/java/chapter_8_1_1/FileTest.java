@@ -18,6 +18,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -175,6 +180,35 @@ public class FileTest {
 
 
     }
+
+    private String result = "";
+    @Test
+    public void TextReadStreamAPITest(){
+        Path path = Paths.get("/Users/sugimotokazuya/Documents/sample2.txt");
+
+        try(BufferedReader reader = Files.newBufferedReader(path,StandardCharsets.UTF_8)){
+
+            // ラムダ式は内部的に別関数扱いになるので、呼び出し元のLocal変数定義にアクセスできない。なるほど。
+            reader.lines().forEach(line -> result += line);
+        }catch(IOException ex){
+            System.out.println(ex);
+        }
+
+        assertEquals("testtest2", result);
+    }
     
+    @Test
+    public void TextReadStreamAPITest2(){
+        Path path = Paths.get("/Users/sugimotokazuya/Documents/sample3.txt");
+        String checkText = "";
+
+        try(BufferedReader reader = Files.newBufferedReader(path,StandardCharsets.UTF_8)){
+            checkText = reader.lines().map(x -> x.split(" ")[0]).distinct().collect(Collectors.joining(",")).toString();
+        }catch(IOException ex){
+            System.out.println(ex);
+        }
+
+        assertEquals("murata,tanimoto,sakamoto,okada", checkText);
+    }
 
 }
