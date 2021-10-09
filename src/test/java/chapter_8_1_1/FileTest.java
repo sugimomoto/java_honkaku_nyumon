@@ -15,6 +15,7 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.CacheRequest;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -211,4 +212,71 @@ public class FileTest {
         assertEquals("murata,tanimoto,sakamoto,okada", checkText);
     }
 
+    @Test
+    public void FileCopyAfterJava7(){
+
+        Path fromFile = Paths.get("/Users/sugimotokazuya/Documents/sample3.txt");
+        Path toFile = Paths.get("/Users/sugimotokazuya/Documents/sample4.txt");
+
+        String checkText = "";
+
+        try{
+            Files.copy(fromFile, toFile);
+        }catch(IOException ex){
+            System.err.println(ex);
+        }
+
+        try(BufferedReader reader = Files.newBufferedReader(toFile,StandardCharsets.UTF_8)){
+            checkText = reader.lines().map(x -> x.split(" ")[0]).distinct().collect(Collectors.joining(",")).toString();
+        }catch(IOException ex){
+            System.out.println(ex);
+        }
+
+        assertEquals("murata,tanimoto,sakamoto,okada", checkText);
+
+
+        boolean result = false;
+        
+        try{
+            result = Files.deleteIfExists(toFile);
+        }catch(DirectoryNotEmptyException ex){
+            System.out.println(ex);
+        }catch(IOException ex){
+            System.out.println(ex);
+        }
+
+        assertEquals(result, true);
+
+        try{
+            Files.createFile(toFile);
+        }catch(IOException ex){
+            System.out.println(ex);
+        }
+
+        try{
+            result = Files.deleteIfExists(toFile);
+        }catch(DirectoryNotEmptyException ex){
+            System.out.println(ex);
+        }catch(IOException ex){
+            System.out.println(ex);
+        }
+
+        Path createPath = Paths.get("/Users/sugimotokazuya/Documents/NewPath");
+
+        try{
+            Files.createDirectory(createPath);
+        }catch(IOException ex){
+            System.out.println(ex);
+        }
+
+        try{
+            result = Files.deleteIfExists(createPath);
+        }catch(DirectoryNotEmptyException ex){
+            System.out.println(ex);
+        }catch(IOException ex){
+            System.out.println(ex);
+        }
+
+
+    }
 }
