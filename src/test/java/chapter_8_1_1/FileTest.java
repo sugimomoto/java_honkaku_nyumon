@@ -1,6 +1,7 @@
 package chapter_8_1_1;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -278,5 +279,35 @@ public class FileTest {
         }
 
 
+    }
+
+    @Test
+    public void CreateTempFileTestByFileClass(){
+        File directory = new File("/Users/sugimotokazuya/Documents");
+
+        try{
+            File tempFile = File.createTempFile("prefix",".tmp",directory);
+            
+            // プログラム終了時にtempFileを削除する設定を追加
+            // ただし、Java VMなどが強制終了した場合などは残ってしまう
+            tempFile.deleteOnExit();
+
+            assertTrue("Temp File exist", tempFile.getAbsolutePath().contains(".tmp"));
+            
+        }catch(IOException ex){
+            System.out.println(ex);
+        }
+    }
+
+    @Test
+    public void CreateTempFileTestByPathClass(){
+        Path path = Paths.get("/Users/sugimotokazuya/Documents");
+
+        try{
+            Path tempPath = Files.createTempDirectory(path, "pre");
+            assertTrue("Temp File was created", tempPath.toString().contains("pre"));
+        }catch(IOException ex){
+            System.out.println(ex);
+        }
     }
 }
