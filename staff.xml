@@ -1,0 +1,10 @@
+<staffs>
+    <staff id="1">
+        <name>
+            <firstname>Takuya</firstname>
+            <lastname>Okada</lastname>
+        </name>
+        <gender>male</gender>
+        <job>Engineer</job>
+    </staff>
+</staffs>
