@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -26,7 +27,7 @@ public class StreamTest {
 
         assertEquals("[Student [score=50,name=Takuya], Student [score=70,name=Taro], Student [score=100,name=Kazuya]]", students.toString());
 
-        List<Student> results = students.stream().filter(s -> s.getScore() >= 70).toList();
+        List<Student> results = students.stream().filter(s -> s.getScore() >= 70).collect(Collectors.toList());
         assertEquals(2, results.size());
 
         

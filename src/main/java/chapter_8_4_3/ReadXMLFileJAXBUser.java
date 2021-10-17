@@ -9,13 +9,13 @@ import javax.xml.bind.JAXBContext;
 
 import jakarta.xml.bind.Marshaller;
 
-public class ReadXMLFileJAXB {
+public class ReadXMLFileJAXBUser {
     
-    private Staffs staffs;
+    private User user;
 
     private String xmlFile;
 
-    public ReadXMLFileJAXB(String xmlFile){
+    public ReadXMLFileJAXBUser(String xmlFile){
         this.xmlFile = xmlFile;
 
     }
@@ -24,16 +24,16 @@ public class ReadXMLFileJAXB {
 
         try(InputStream is = Files.newInputStream(Paths.get(xmlFile))){
             jakarta.xml.bind.JAXBContext jaxbContext = org.eclipse.persistence.jaxb.JAXBContextFactory
-            .createContext(new Class[] {Staffs.class}, null);
+            .createContext(new Class[] {User.class}, null);
 
-            this.staffs = (Staffs)jaxbContext.createUnmarshaller().unmarshal(is);
+            this.user = (User)jaxbContext.createUnmarshaller().unmarshal(is);
         }catch(Exception ex){
             System.out.println(ex);
         }
     }
 
-    public Staffs getStaffs(){
-        return staffs;
+    public User getUser(){
+        return user;
     }
     
 }

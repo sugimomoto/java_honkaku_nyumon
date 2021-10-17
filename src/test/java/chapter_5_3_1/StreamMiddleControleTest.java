@@ -79,7 +79,7 @@ public class StreamMiddleControleTest {
         List<Student> sortedStudents = groups.stream()
         .flatMap(g -> g.getStudents().stream())
         .sorted((s1, s2) -> s1.getScore() - s2.getScore())
-        .toList();
+        .collect(Collectors.toList());
 
         Student beforeStuden = new Student("first",0);
 
@@ -100,10 +100,10 @@ public class StreamMiddleControleTest {
         students.add(new Student("World", 80));
         students.add(new Student("Stream", 50));
         
-        students = students.stream().filter(s -> s.getScore() < 90).toList();
+        students = students.stream().filter(s -> s.getScore() < 90).collect(Collectors.toList());
         assertEquals(2, students.size());
 
-        students = students.stream().limit(1).toList();
+        students = students.stream().limit(1).collect(Collectors.toList());
         assertEquals(1, students.size());
 
         List<String> strings = new ArrayList<>();
@@ -114,7 +114,7 @@ public class StreamMiddleControleTest {
         strings.add("Ken");
         strings.add("Shin");
 
-        strings = strings.stream().distinct().toList();
+        strings = strings.stream().distinct().collect(Collectors.toList());
 
         assertEquals(3, strings.size());
     }
