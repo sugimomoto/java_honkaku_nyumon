@@ -6,6 +6,12 @@ import org.junit.Test;
 
 public class ReadXMLFileJAXBTest {
     
+
+    /*
+    以下の依存関係の解決が必要だったみたい。
+    https://stackoverflow.com/questions/58009038/eclipse-4-12-java-lang-classnotfoundexception-com-sun-xml-internal-bind-v2-co
+    */
+
     @Test
     public void ReadXmlFileTest(){
 
@@ -17,7 +23,7 @@ public class ReadXMLFileJAXBTest {
 
         Staffs staffs = jaxb.getStaffs();
 
-        assertEquals(1, staffs.getStaffList().get(1).getId());
+        assertEquals(1, staffs.getStaffList().get(0).getId());
 
     }
 
@@ -32,7 +38,7 @@ public class ReadXMLFileJAXBTest {
         jaxb.parse();
 
         User user = jaxb.getUser();
-        assertEquals("Hello", user.getName());
+        assertEquals("hello", user.getName());
 
     }
 }

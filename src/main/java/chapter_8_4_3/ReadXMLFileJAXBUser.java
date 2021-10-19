@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 
 import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBContextFactory;
 
 import jakarta.xml.bind.Marshaller;
 
@@ -23,10 +24,9 @@ public class ReadXMLFileJAXBUser {
     public void parse(){
 
         try(InputStream is = Files.newInputStream(Paths.get(xmlFile))){
-            jakarta.xml.bind.JAXBContext jaxbContext = org.eclipse.persistence.jaxb.JAXBContextFactory
-            .createContext(new Class[] {User.class}, null);
 
-            this.user = (User)jaxbContext.createUnmarshaller().unmarshal(is);
+            this.user = JAXB.unmarshal(is, User.class);
+
         }catch(Exception ex){
             System.out.println(ex);
         }

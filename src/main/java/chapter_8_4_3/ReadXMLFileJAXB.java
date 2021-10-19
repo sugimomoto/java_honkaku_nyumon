@@ -23,10 +23,7 @@ public class ReadXMLFileJAXB {
     public void parse(){
 
         try(InputStream is = Files.newInputStream(Paths.get(xmlFile))){
-            jakarta.xml.bind.JAXBContext jaxbContext = org.eclipse.persistence.jaxb.JAXBContextFactory
-            .createContext(new Class[] {Staffs.class}, null);
-
-            this.staffs = (Staffs)jaxbContext.createUnmarshaller().unmarshal(is);
+            this.staffs = JAXB.unmarshal(is, Staffs.class);
         }catch(Exception ex){
             System.out.println(ex);
         }
