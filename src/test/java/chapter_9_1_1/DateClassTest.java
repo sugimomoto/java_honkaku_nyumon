@@ -4,6 +4,10 @@ package chapter_9_1_1;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -45,5 +49,42 @@ public class DateClassTest {
 
         assertTrue("message", now.after(calendar.getTime()));
 
+    }
+
+    @Test
+    public void DateAndTimeAPITest(){
+        LocalDate localDate = LocalDate.now();
+
+        System.out.println(localDate);
+
+        LocalTime localTime = LocalTime.now();
+
+        System.out.println(localTime);
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        System.out.println(localDateTime);
+
+        LocalDate localDateOf = LocalDate.of(2021, 10, 22);
+        assertEquals("2021-10-22", localDateOf.toString());
+
+        LocalTime localTimeOf = LocalTime.of(11, 22, 33);
+
+        assertEquals("11:22:33", localTimeOf.toString());
+
+        LocalDate localDateParse = LocalDate.parse("2021-10-22");
+
+        assertEquals("2021-10-22", localDateParse.toString());
+        assertEquals(2021, localDateOf.getYear());
+        assertEquals(Month.OCTOBER, localDateOf.getMonth());
+        assertEquals(10, localDateOf.getMonth().getValue());
+        assertEquals(22, localDateOf.getDayOfMonth());
+
+        // イミュータブルな値なので、インスタンスの中身の値が変わることは無いので注意
+        localDateOf = localDateOf.plusYears(3);
+        localDateOf = localDateOf.minusMonths(2);
+        localDateOf = localDateOf.plusDays(5);
+
+        assertEquals("2024-08-27", localDateOf.toString());
     }
 }
