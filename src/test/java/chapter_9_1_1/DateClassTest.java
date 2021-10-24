@@ -4,6 +4,8 @@ package chapter_9_1_1;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -12,6 +14,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Test;
+
+import jakarta.mail.internet.ParseException;
 
 public class DateClassTest {
     
@@ -86,5 +90,26 @@ public class DateClassTest {
         localDateOf = localDateOf.plusDays(5);
 
         assertEquals("2024-08-27", localDateOf.toString());
+
+        
     }
+
+    @Test
+    public void DateFormartTest(){
+
+        Calendar date = Calendar.getInstance();
+        date.set(2021,10,24,11,22,00);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH時mm分");
+
+        assertEquals("2021年11月24日11時22分", dateFormat.format(date.getTime()));
+        
+        try{
+            Date resultDate = dateFormat.parse("2021年11月12日12時33分");
+            assertTrue("message", resultDate.before(date.getTime()));
+
+        } catch (java.text.ParseException e) {
+            System.out.println(e);
+        }
+    }
+
 }
