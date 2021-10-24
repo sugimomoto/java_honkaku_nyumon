@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.chrono.JapaneseDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -111,5 +114,37 @@ public class DateClassTest {
             System.out.println(e);
         }
     }
+
+    @Test
+    public void LocalDateTimeFormatTest(){
+        LocalDateTime date = LocalDateTime.of(2021, 10, 25, 07, 05, 10);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        assertEquals("2021/10/25 07:05:10", formatter.format(date));
+
+        TemporalAccessor parsed = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").parse("2021/10/25 11:22:33");
+        LocalDateTime datetime = LocalDateTime.from(parsed);
+        assertEquals(2021,datetime.getYear());
+
+        // 
+        parsed = DateTimeFormatter.ISO_LOCAL_DATE.parse("2021-10-25");
+        LocalDate dateFromISO = LocalDate.from(parsed);
+
+        assertEquals(2021, dateFromISO.getYear());
+    }
+
+    @Test
+    public void JapaneseDateTest(){
+
+        // すげー。令和対応しているJapaneseDate Classがある。
+        JapaneseDate japaneseDate = JapaneseDate.of(2021, 10, 25);
+
+        System.out.println(japaneseDate);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("GGGGy年M月d日");
+        
+        assertEquals("令和3年10月25日", formatter.format(japaneseDate));
+    }
+
 
 }
