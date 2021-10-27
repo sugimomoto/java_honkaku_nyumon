@@ -27,6 +27,19 @@ public class DataLoaderTest {
             e.printStackTrace();
         }
 
+        SubDataLoader subDataLoader = new SubDataLoader("/Users/sugimotokazuya/Documents/Java/java_honkaku_nyumon/sample.txt");
+
+        flg = false;
+
+        try {
+            lines = subDataLoader.load();
+            assertEquals(1, lines.size());
+            assertEquals("hello", lines.get(0));
+            flg = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         assertTrue("message", flg);
     }
 }
