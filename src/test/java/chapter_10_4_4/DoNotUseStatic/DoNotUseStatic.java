@@ -9,7 +9,6 @@ public class DoNotUseStatic {
     @Test
     public void MethodTest(){
         Foo foo = new DefaultFoo("Hello Foo!");
-
         assertEquals("Hello Foo!", foo.say());
 
     }
