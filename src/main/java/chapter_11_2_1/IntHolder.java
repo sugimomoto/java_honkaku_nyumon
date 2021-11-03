@@ -9,5 +9,10 @@ public class IntHolder {
 
     public void increment(){
         intNum++;
+        /* synchronized をつけると、アクセスできるスレッドが1つになる。
+        synchronized(this){
+            intNum++;
+        }
+        */
     }
 }
