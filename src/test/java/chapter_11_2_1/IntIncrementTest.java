@@ -23,7 +23,7 @@ public class IntIncrementTest {
 
             System.out.println(holder.getResult());
 
-            assertNotEquals(2000000, holder.getResult());
+            assertEquals(2000000, holder.getResult());
 
 
         }catch(InterruptedException ex){

@@ -7,7 +7,7 @@ public class IntHolder {
         return intNum;
     }
 
-    public void increment(){
+    public synchronized void increment(){
         intNum++;
         /* synchronized をつけると、アクセスできるスレッドが1つになる。
         synchronized(this){
