@@ -13,7 +13,7 @@ public class FactoryTest {
         Factory factory = creator.createFactory();
 
         Connection conn = factory.getConnection();
-        conn.setConnectionName("PostgreSQL");
+        conn.setConnectionName();
 
         assertEquals("PostgreSQL", conn.getConnectionName());
 
