@@ -12,4 +12,12 @@ public class AdapterPatternTest {
 
         assertEquals("New process called old process : HELLO_OLD_PROCESS", target.process());
     }
+
+    @Test
+    public void DelegateAdapterTest(){
+        AbstractTarget target = new DelegateAdapter();
+
+        assertEquals("HELLO_OLD_PROCESS", target.process());
+    }
+
 }
