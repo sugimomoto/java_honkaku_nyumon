@@ -3,6 +3,9 @@ package chapter_12_4_4;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 状態変更を監視するクラス
+ */
 public abstract class Subject {
     private List<Observer> observers = new ArrayList<>();
     
