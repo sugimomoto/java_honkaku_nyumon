@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class ReadXMLFilebyXPathTest {
-    
+    /*
     @Test
     public void ReadXMLFilebyXPathClassTest(){
         ReadXMLFileXPath reader = new ReadXMLFileXPath();
@@ -16,4 +16,5 @@ public class ReadXMLFilebyXPathTest {
         assertEquals(reader.readXMLbyXPath("/staffs/staff/@id"), "1");        
 
     }
+    */
 }

@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 public class FileTest {
-    
+    /*
     @Test
     public void FileClassTest(){
         File logfile = new File("/Users/sugimotokazuya/Documents/Import.log");
@@ -310,4 +310,5 @@ public class FileTest {
             System.out.println(ex);
         }
     }
+    */
 }

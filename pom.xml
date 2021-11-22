@@ -120,7 +120,34 @@
               <charset>UTF-8</charset>
           </configuration>
       </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.1.2</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <excludes>src/test/**</excludes>
+        </configuration>
+      </plugin>
       </plugins>
     </pluginManagement>
+    
   </build>
+  <reporting>
+    <plugins>
+    <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-checkstyle-plugin</artifactId>
+    <version>3.1.2</version>
+    <reportSets>
+    <reportSet>
+    <reports>
+    <report>checkstyle</report>
+    </reports>
+    </reportSet>
+    </reportSets>
+    </plugin>
+    </plugins>
+    </reporting>
 </project>
