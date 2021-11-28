@@ -61,6 +61,22 @@ public class CommonLangTest {
         Student student2 = new Student(student1);
 
         assertThat(student1, is(student2));
+    }
+
+    @Test
+    public void ShallowCopyTest() {
+        Student student1 = new Student();
+        student1.setNo(1);
+        student1.setName("Kazuya");
+        student1.setAge(34);
+
+        // 参照を変数に代入するだけ
+        Student student2 = student1;
+        student2.setAge(33);
+
+        // Student1の変数を変更している
+        // これが参照のコピー、ShallowCopy
+        assertEquals(33, student1.getAge());
 
 
     }
