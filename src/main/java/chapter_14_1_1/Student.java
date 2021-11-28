@@ -13,6 +13,8 @@ public class Student {
     }
 
     public Student(Student student) throws IllegalAccessException, InvocationTargetException{
+        // 値をコピーしてインスタンスを生成している
+        // ただし、リファレンスはCopyできないらしい
         BeanUtils.copyProperties(this, student);
     }
     
