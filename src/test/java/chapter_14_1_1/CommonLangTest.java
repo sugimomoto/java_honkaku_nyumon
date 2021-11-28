@@ -1,6 +1,10 @@
 package chapter_14_1_1;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -18,5 +22,28 @@ public class CommonLangTest {
 
         // CommonLang の StringUtilsであれば、isEmptyでチェックできる
         assertEquals(true, StringUtils.isEmpty(sample));
+    }
+
+    @Test
+    public void HashEqualMethodTest(){
+        Student student1 = new Student();
+        student1.setNo(1);
+        student1.setName("Kazuya");
+        student1.setAge(34);
+
+        Student student2 = new Student();
+        student2.setNo(2);
+        student2.setName("hitomi");
+        student2.setAge(33);
+
+        Student student3 = new Student();
+        student3.setNo(1);
+        student3.setName("Kazuya");
+        student3.setAge(34);
+
+
+        assertThat(student1, is(not(student2)));
+        assertThat(student1, is(student3));
+
     }
 }
