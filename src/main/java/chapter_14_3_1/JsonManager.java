@@ -2,6 +2,7 @@ package chapter_14_3_1;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
@@ -23,4 +24,13 @@ public class JsonManager {
 
         return employee;
     }
+
+    public Map<?,?> readEmployeeFromJsonWithMap() throws StreamReadException, DatabindException, IOException {
+        File file = new File(path);
+
+        ObjectMapper mapper = new ObjectMapper();
+        Map<?,?> employee = mapper.readValue(file, Map.class);
+
+        return employee;
+    } 
 }
