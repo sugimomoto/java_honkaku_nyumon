@@ -1,12 +1,15 @@
 package chapter_14_3_1;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.databind.DatabindException;
 
 import org.junit.Test;
@@ -44,5 +47,28 @@ public class JsonManagerTest {
         assertEquals(2, ((List<?>)employee.get("licenses")).size());
         assertEquals("第1種運転免許", ((List<?>)employee.get("licenses")).get(0));
     
+    }
+
+    @Test
+    public void JsonCreateTest() throws StreamWriteException, DatabindException, IOException{
+        JsonManager jsonManager = new JsonManager("createsample.json");
+
+        Employee employee = new Employee();
+        employee.setName("kazuya");
+        employee.setAge(33);
+        List<String> licenses = new ArrayList();
+        licenses.add("ITパスポート");
+        licenses.add("大型2種");
+
+        employee.setLicenses(licenses);
+
+        jsonManager.createEmployeeJson(employee);
+
+        Employee createdEmployee = jsonManager.readEmployeeFromJson();
+
+        assertEquals(employee.getName(), createdEmployee.getName());
+        assertEquals(employee.getAge(), createdEmployee.getAge());
+        assertEquals(employee.getLicenses(), createdEmployee.getLicenses());
+
     }
 }

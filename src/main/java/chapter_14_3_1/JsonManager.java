@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,4 +34,10 @@ public class JsonManager {
 
         return employee;
     } 
+
+    public void createEmployeeJson(Employee employee) throws StreamWriteException, DatabindException, IOException{
+        File file = new File(path);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(file, employee);
+    }
 }
