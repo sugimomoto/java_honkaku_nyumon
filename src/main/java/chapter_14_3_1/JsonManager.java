@@ -40,4 +40,10 @@ public class JsonManager {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(file, employee);
     }
+
+    public void createEmployeeJsonWithMap(Map<String,Object> map) throws StreamWriteException, DatabindException, IOException{
+        File file = new File(path);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(file, map);
+    }
 }

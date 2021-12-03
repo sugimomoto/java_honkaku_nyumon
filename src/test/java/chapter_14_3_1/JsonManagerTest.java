@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,5 +72,23 @@ public class JsonManagerTest {
         assertEquals(employee.getAge(), createdEmployee.getAge());
         assertEquals(employee.getLicenses(), createdEmployee.getLicenses());
 
+    }
+
+    @Test
+    public void JsonCreateWithMapTest() throws StreamWriteException, DatabindException, IOException{
+        JsonManager jsonManager = new JsonManager("createsample.json");
+        Map<String,Object> map = new LinkedHashMap<>();
+        map.put("name","sugimoto");
+        map.put("age", 34);
+        map.put("licenses", Arrays.asList("基本情報","漢字検定"));
+
+        jsonManager.createEmployeeJsonWithMap(map);
+
+        Map<?,?> resultMap = jsonManager.readEmployeeFromJsonWithMap();
+        
+
+        assertEquals(map.get("name"), resultMap.get("name"));
+        assertEquals(map.get("age"), resultMap.get("age"));
+        assertEquals(map.get("licenses"), resultMap.get("licenses"));
     }
 }
