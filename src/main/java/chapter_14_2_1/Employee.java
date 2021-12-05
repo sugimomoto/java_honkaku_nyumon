@@ -53,4 +53,10 @@ public class Employee {
     public void setNote(String note) {
         this.note = note;
     }
+
+    @Override
+    public String toString() {
+        return "Employee [age=" + age + ", birth=" + birth + ", email=" + email + ", name=" + name + ", note=" + note
+                + "]";
+    }
 }
