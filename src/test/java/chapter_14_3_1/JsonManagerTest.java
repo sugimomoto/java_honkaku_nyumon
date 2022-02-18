@@ -4,6 +4,8 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -21,18 +23,16 @@ import junit.framework.AssertionFailedError;
 public class JsonManagerTest {
     
     @Test
-    public void JsonReadTest(){
+    public void JsonReadTest() throws StreamReadException, DatabindException, IOException{
         JsonManager jsonManager = new JsonManager("sample.json");
+        
 
         Employee employee = new Employee();
 
-        try {
-            employee = jsonManager.readEmployeeFromJson();
-        } catch (IOException e) {
-            //TODO: handle exception
-        }
+        employee = jsonManager.readEmployeeFromJson();
 
         assertEquals("山田 太郎", employee.getName());
+        assertEquals(LocalDate.of(1987, 7, 21), employee.getBirthday());
         assertEquals((Integer)35, employee.getAge());
         assertEquals(2, employee.getLicenses().size());
         assertEquals("第1種運転免許", employee.getLicenses().get(0));

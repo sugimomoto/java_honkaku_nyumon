@@ -27,14 +27,14 @@ public class PropertyFileManager {
 
     private void InitializePropertyFile(){
         
-        Path path = Paths.get(propartyPath);
+            Path path = Paths.get(propartyPath);
 
-        try(BufferedReader reader = Files.newBufferedReader(path,StandardCharsets.UTF_8)){
-            properties = new Properties();
-            properties.load(reader);
-        }catch(IOException ex){
-            System.out.println(ex);
-        }
+            try(BufferedReader reader = Files.newBufferedReader(path,StandardCharsets.UTF_8)){
+                properties = new Properties();
+                properties.load(reader);
+            }catch(IOException ex){
+                System.out.println(ex);
+            }
     }
 
     public String GetPropertyValue(String keyName){

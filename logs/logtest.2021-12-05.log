@@ -1,0 +1,8 @@
+2021-12-05 11:03:06,329 [main] INFO  chapter_14_4_1.LoggerTest - Hello Logger
+2021-12-05 11:03:06,512 [main] INFO  chapter_14_4_1.LoggerTest - Hello Logger
+2021-12-05 11:05:09,320 [main] INFO  chapter_14_4_1.LoggerTest - Hello Logger
+2021-12-05 11:05:39,551 [main] INFO  chapter_14_4_1.LoggerTest - Hello Logger
+2021-12-05 11:06:13,745 [main] INFO  chapter_14_4_1.LoggerTest - Hello Logger
+2021-12-05 11:06:13,745 [main] DEBUG chapter_14_4_1.LoggerTest - employee=chapter_14_2_1.Employee@24269709
+2021-12-05 11:06:58,918 [main] INFO  chapter_14_4_1.LoggerTest - Hello Logger
+2021-12-05 11:06:58,921 [main] DEBUG chapter_14_4_1.LoggerTest - employee=Employee [age=34, birth=null, email=test@example.com, name=kazuya, note=null]

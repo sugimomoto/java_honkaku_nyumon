@@ -10,17 +10,39 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.ZoneId;
 import java.time.chrono.JapaneseDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.junit.Test;
 
 import jakarta.mail.internet.ParseException;
 
 public class DateClassTest {
+
+    /*
+    LocalDate, LocalTime, LocalDateTime はタイムゾーンの情報が無い、日付や時間のためのClass
+    */
+
+    @Test
+    public void LocalDateTimeConfirm(){
+        // このマシンのタイムゾーンをもとに、日付と時間を取得する。ただし、データとしてタイムゾーンは持たない。
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        System.out.println(localDateTime.toString());
+
+        // タイムゾーンも含めて情報を取得している。
+        Calendar calendar = Calendar.getInstance();
+
+        System.out.println(calendar.toString());
+        calendar.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+        System.out.println(calendar.get(Calendar.HOUR));
+
+    }
     
     @Test
     public void DateClassMethodTest(){
